@@ -31,5 +31,17 @@ end
 # a = ['zero', one','two','three','four']
 # a[2] => 'two'
 
-10.times { puts Sentence.new.generate(6,10) }
+n = 0
+s = 0
+# Let's figure out how to set x amount of words per line then break
+#it. :)
+num_of_lines = rand (4..6)
+while n < num_of_lines
+  while s >= rand 
+    n += 1
+    rand(4..6).times { puts Sentence.new.generate(6,10) }
+    puts 
+ 
+  end
+end
 
