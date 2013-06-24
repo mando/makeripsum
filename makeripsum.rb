@@ -13,10 +13,11 @@ class Sentence
   #Class info
 
   #Instance info
-  def generate (n)
+  def generate (min, max)
     s = []
-    n.times { s.push(Word.generate) }
-    s.join(" ")
+    s.push(Word.generate.capitalize)
+    rand(min-1..max-1).times { s.push(Word.generate) }
+    s.join(" ") + "." 
   end
 end
 
@@ -30,4 +31,5 @@ end
 # a = ['zero', one','two','three','four']
 # a[2] => 'two'
 
-puts Sentence.new.generate(5)
+10.times { puts Sentence.new.generate(6,10) }
+
