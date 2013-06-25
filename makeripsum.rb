@@ -4,6 +4,20 @@ class Word
   #Class info
   @@words = ['zero', 'one','two','three','four']
 
+  def self.populate
+    f = File.new('ipsumrandomwords.txt', 'r')
+    while line = f.gets
+      # puts "line class = #{line.class}"
+      @@words += line.split(/\s+/)
+    end
+    f.close
+  end
+
+  def self.get
+    puts @@words.class
+    puts @@words.inspect
+  end
+
   #Instance info
   def self.generate
     i=rand(@@words.count-1)
@@ -64,6 +78,10 @@ class Paragraph
 end
 
 # --------- MAIN ------------
+
+
+Word.populate
+# Word.get
 
 puts "Welcome to MakerIpsum."
 puts "How many paragraphs would you like?"
