@@ -41,7 +41,11 @@ class Sentence
     s.push(Word.generate.capitalize, ' ')
     rand(@min-1..@max-1).times { s.push(Word.generate, ' ') }
     s.pop
-    s[-1] += '.'
+    1.times {
+      p = rand(15..25)
+      s[p] += %w(, ; \ - :)[rand(0..3)] unless s[p] == ' '
+    }
+    s[-1] += %w(. ? !)[rand(0..2)]
     s.push(' ')
     s
   end
@@ -82,6 +86,7 @@ end
 
 Word.populate
 # Word.get
+
 
 puts "Welcome to MakerIpsum."
 puts "How many paragraphs would you like?"
