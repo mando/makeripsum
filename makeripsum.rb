@@ -65,9 +65,16 @@ end
 
 # --------- MAIN ------------
 
-p = Paragraph.new(13,16).generate
-p.write
+puts "Welcome to MakerIpsum."
+puts "How many paragraphs would you like?"
+n_paragraphs = gets.chomp.to_i
 
+n_paragraphs.times {
+  n_paragraphs -= 1
+  p = Paragraph.new(13,16).generate
+  p.write
+  print "\n" if n_paragraphs > 0
+}
 # puts p.class
 # puts p.inspect
 

@@ -1,9 +1,9 @@
 
 
 Features
-1. Specify number of paragraphs
+done 1. Specify number of paragraphs.
 2. Twitter API - search for #makeripsum
-3. Natural line breaks - pick number of words in one line as rand(13..16)
-4. Natural sentences - pick number of words in one sentence as rand(15..20)
+done 3. Natural line breaks - pick number of words in one line as rand(13..16)
+done 4. Natural sentences - pick number of words in one sentence as rand(15..20)
 5. Read random list of makeripsum from text file
 6. Include punctuation at natural intervals - ',', ';', '-', '!', '?'
