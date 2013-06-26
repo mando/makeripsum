@@ -90,6 +90,9 @@ paragraphs = Ipsum.new.paragraphs(2)
 paragraphs.each { |p| puts p; puts }
 
 # to render in rails, iterate over array of paragraphs
+# Ipsum.new.paragraphs(2).each do |p|
+#   <p><%= p %></p>
+# end
 
 # --------- Test ---------- #
 # Ipsum.new
