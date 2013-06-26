@@ -1,9 +1,30 @@
 class Ipsum
   # class info
+  @@ipsum = []
+
+  def self.dictionary
+    @@ipsum
+  end
+
+  def self.from_file(file)
+    f = File.new(file, 'r')
+    while line = f.gets
+      @@ipsum += line.split(/\s+/)
+    end
+    f.close    
+  end
+
+  def self.from_twitter(xxx)
+  
+  end
 
   # instance info
-  # has paragraphs
+  def initialize
+    Ipsum.from_file('ipsumrandomwords.txt')
+    Ipsum.from_twitter('xxx')
+  end
 
+  # has paragraphs
   def paragraphs(n)
     # generate n paragraphs
     paragraphs = Array.new(n) { |index|
@@ -51,23 +72,12 @@ end
 
 class Word
   # class info
-  @@words = []
-  f = File.new('ipsumrandomwords.txt', 'r')
-  while line = f.gets
-    @@words += line.split(/\s+/)
-  end
-  f.close
 
   def self.new
-    @@words[ rand( 0..@@words.count-1 ) ]
+    Ipsum.dictionary[ rand( 0..Ipsum.dictionary.count-1 ) ]
   end
 
   # instance info
-  # is an array of random words
-
-  def to_s
-    @word
-  end
 end
 
 
@@ -80,3 +90,6 @@ paragraphs = Ipsum.new.paragraphs(2)
 paragraphs.each { |p| puts p; puts }
 
 # to render in rails, iterate over array of paragraphs
+
+# --------- Test ---------- #
+# Ipsum.new
