@@ -28,7 +28,6 @@ class Ipsum
         tweet = status.text.gsub(/[@#]\S+/,'')
         tweet.gsub!(/^\s+/,'')
         tweet.gsub!(/\s+$/,'')
-        puts tweet
         @@ipsum.push(tweet)
     end
   end
@@ -79,7 +78,8 @@ class Sentence
     words[-1] += %w{. ? !}[rand(0..2)] # add ending punctuation
     2.times {
       # add middle punctuation
-      words[rand(0..words.count-2)] += %w{, ; : \ - ...}[rand(0..4)]
+      i = rand(0..words.count-2)
+      words[i] += %w{, ; : \ - ...}[rand(0..4)] unless words[i].match(/[,;:\-.]$/)
     }
     words
   end
@@ -99,7 +99,10 @@ end
 # --------- Main ---------- #
 
 # Ipsum.new.paragraphs(n) => array of n paragraphs
-paragraphs = Ipsum.new.paragraphs(2)
+puts "Welcome to TheMakerIpsum"
+puts "How many paragraphs of MakerIpsum would you like?"
+n = gets.chomp.to_i
+paragraphs = Ipsum.new.paragraphs(n)
 
 # render to console
 paragraphs.each { |p| puts p; puts }
