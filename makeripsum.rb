@@ -24,7 +24,7 @@ class Ipsum
       config.oauth_token_secret = ENV['YOUR_OAUTH_TOKEN_SECRET']
     end
 
-    Twitter.search("#makeripsum").results.map do |status|
+    Twitter.search("#makeripsum @MakerSquare").results.map do |status|
         tweet = status.text.gsub(/[@#]\S+/,'')
         tweet.gsub!(/^\s+/,'')
         tweet.gsub!(/\s+$/,'')
@@ -98,19 +98,20 @@ end
 
 # --------- Main ---------- #
 
-# Ipsum.new.paragraphs(n) => array of n paragraphs
+# promp user from CLI
 puts "Welcome to TheMakerIpsum"
 puts "How many paragraphs of MakerIpsum would you like?"
 n = gets.chomp.to_i
+
+# Ipsum.new.paragraphs(n) => array of n paragraphs
 paragraphs = Ipsum.new.paragraphs(n)
 
-# render to console
+# render to CLI
 paragraphs.each { |p| puts p; puts }
 
-# to render in rails, iterate over array of paragraphs
-# <% Ipsum.new.paragraphs(2).each do |p| %>
-#   <p><%= p %></p>
-# <% end %>
 
-# --------- Test ---------- #
-# Ipsum.new
+#---- How to port to Rails -----#
+# to render in rails, iterate over array of paragraphs
+<% Ipsum.new.paragraphs(n).each do |p| %>
+  <p><%= p %></p>
+<% end %>
