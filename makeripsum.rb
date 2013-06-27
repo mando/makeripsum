@@ -1,3 +1,5 @@
+require 'twitter'
+
 class Ipsum
   # class info
   @@ipsum = []
@@ -14,14 +16,27 @@ class Ipsum
     f.close    
   end
 
-  def self.from_twitter(xxx)
-  
+  def self.from_twitter
+    Twitter.configure do |config|
+      config.consumer_key = ENV['YOUR_CONSUMER_KEY']
+      config.consumer_secret = ENV['YOUR_CONSUMER_SECRET']
+      config.oauth_token = ENV['YOUR_OAUTH_TOKEN']
+      config.oauth_token_secret = ENV['YOUR_OAUTH_TOKEN_SECRET']
+    end
+
+    Twitter.search("#makeripsum").results.map do |status|
+        tweet = status.text.gsub(/[@#]\S+/,'')
+        tweet.gsub!(/^\s+/,'')
+        tweet.gsub!(/\s+$/,'')
+        puts tweet
+        @@ipsum.push(tweet)
+    end
   end
 
   # instance info
   def initialize
     Ipsum.from_file('ipsumrandomwords.txt')
-    Ipsum.from_twitter('xxx')
+    Ipsum.from_twitter
   end
 
   # has paragraphs
