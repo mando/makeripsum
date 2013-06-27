@@ -36,11 +36,11 @@ class Ipsum
     end
 
     Twitter.search("#makeripsum @MakerSquare").results.map do |status|
-        # clean up the tweets a bit
-        tweet = status.text.gsub(/[@#]\S+/,'') # remove @s and #s
-        tweet.gsub!(/^\s+/,'')  # remove leading spaces
-        tweet.gsub!(/\s+$/,'')  # remove trailing spaces
-        @@ipsum.push(tweet)     # add normalized tweet to our dictionary
+      # clean up the tweets a bit
+      tweet = status.text.gsub(/[@#]\S+/,'') # remove @s and #s
+      tweet.gsub!(/^\s+/,'')  # remove leading spaces
+      tweet.gsub!(/\s+$/,'')  # remove trailing spaces
+      @@ipsum.push(tweet)     # add normalized tweet to our dictionary
     end
   end
 
