@@ -168,7 +168,18 @@ paragraphs.each { |p| puts p; puts }
 
 
 #---- How to port to Rails -----#
-# to render in rails, iterate over array of paragraphs
-# <% Ipsum.new.paragraphs(n).each do |p| %>
-#   <p><%= p %></p>
-# <% end %>
+to render in rails, iterate over array of paragraphs
+<% Ipsum.new.paragraphs(n).each do |p| %>
+  <p><%= p %></p>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
