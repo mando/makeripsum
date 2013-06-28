@@ -2,8 +2,9 @@ require 'twitter'
 
 # general description
 # Makeripsum prompts the user for number of paragraphs
-# to generate then renders said paragraphs.  The following
-# features are supported:
+# to generate then renders said paragraphs.
+
+# The following features are supported:
 
 # 1. Makeripsum dictionary is built from two sources:
 #   a. a text file with makeripsum
@@ -24,6 +25,13 @@ require 'twitter'
 #     markes picked randomly from %w{, ; : - ...} without placing
 #     punctuation markers consecutively
 # 6. Factored code to be easily ported to rails
+
+# www.ship.it ver 1.0
+
+# New feature ideas
+# - generate natural-like sentences: adj noun verb object
+# - store dictionary in a db
+# - use meriam-webster api to index database, i.e. parts of speech
 
 #----------- Class definitions ---------------#
 
