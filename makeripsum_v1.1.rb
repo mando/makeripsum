@@ -11,6 +11,7 @@ class Ipsum
 
   def initialize(n_paragraphs)
     Dictionary.from_file('ipsumrandomwords.txt')
+    Dictionary.from_twitter
 
     @paragraphs = []
     n_paragraphs.times {
@@ -78,6 +79,28 @@ class Dictionary
     @@words
   end
 
+  def self.from_twitter
+    Twitter.configure do |config|
+      config.consumer_key = ENV['YOUR_CONSUMER_KEY']
+      config.consumer_secret = ENV['YOUR_CONSUMER_SECRET']
+      config.oauth_token = ENV['YOUR_OAUTH_TOKEN']
+      config.oauth_token_secret = ENV['YOUR_OAUTH_TOKEN_SECRET']
+    end
+
+    Twitter.search("@MakerSquare -rt").results.map do |status|
+      # clean up the tweets a bit
+      tweet = status.text.gsub!(/[@#]\S+/,'') # remove @s and #s
+      tweet.gsub!(/\s+/,' ')
+      tweet.gsub!(/http\S+/,'')
+      tweet.gsub!(/RT/,'')
+      tweet.gsub!(/\&\S+/,'')
+      tweet.gsub!(/^\s+/,'')  # remove leading spaces
+      tweet.gsub!(/\s+$/,'')  # remove trailing spaces
+      @@words.push(tweet)     # add normalized tweet to our dictionary
+    end
+  end
+
+
   def self.words
     @@words
   end
@@ -91,9 +114,17 @@ end
 
 #------------ Main -------------#
 
-# puts Ipsum.new(3).paragraphs
-Ipsum.new(2).paragraphs.each do |p|
+puts "Welcome to TheMakerIpsum"
+puts "How many paragraphs of MakerIpsum would you like?"
+n = gets.chomp.to_i
+
+Ipsum.new(n).paragraphs.each do |p|
   puts p
   puts
 end
 
+#---- How to port to Rails -----#
+# to render in rails, iterate over array of paragraphs
+# <% Ipsum.new(n).paragraphs.each do |p| %>
+#   <p><%= p %></p>
+# <% end %>
