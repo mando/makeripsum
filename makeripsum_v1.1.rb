@@ -1,5 +1,8 @@
 require 'twitter'
 
+N_SENTENCES_PER_PARAGRAPH = 10
+N_WORDS_PER_SENTENCE      = 10
+
 class Ipsum
   # class info
 
@@ -23,7 +26,14 @@ class Paragraph
   attr_reader :text
 
   def initialize
-    @text = Sentence.new(5).text
+    @paragraph_array = []
+    N_SENTENCES_PER_PARAGRAPH.times {
+      @paragraph_array.push(Sentence.new(N_WORDS_PER_SENTENCE).text)
+    }
+  end
+
+  def text
+    @paragraph_array.join(' ')
   end
 end
 
@@ -38,6 +48,17 @@ class Sentence
     n_words.times {
       @sentence_array.push(Dictionary.words[ rand( 0..Dictionary.n_words-1 ) ])
     }
+    normalize
+  end
+
+  def normalize
+    @sentence_array[0].capitalize!
+    @sentence_array[-1] += %w{. ? !}[rand(0..2)]
+    2.times {
+      i = rand(0..@sentence_array.count-2)
+      @sentence_array[i] += %w{, ; : \ - ...}[rand(0..4)] unless @sentence_array[i].match(/[,;:\-.]$/)
+      # unless => prevent multiple punctuation, e.g. ;,
+    }    
   end
 
   def text
@@ -71,5 +92,8 @@ end
 #------------ Main -------------#
 
 # puts Ipsum.new(3).paragraphs
-puts Ipsum.new(3).paragraphs
+Ipsum.new(2).paragraphs.each do |p|
+  puts p
+  puts
+end
 
